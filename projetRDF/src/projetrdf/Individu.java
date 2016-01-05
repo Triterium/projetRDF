@@ -63,7 +63,7 @@ public class Individu {
     @Override
     public String toString()
     {
-        String s = "[" + this.nom;
+        String s = "[" + this.nom + " - " + this.classe+ " - ";
         for(double d : this.mesures)
         {
             s += " " + d;
@@ -71,6 +71,5 @@ public class Individu {
         
         s += "]";
         return s;
-            
     }
 }

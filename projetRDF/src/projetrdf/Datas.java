@@ -5,6 +5,7 @@
  */
 package projetrdf;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,6 +20,11 @@ public class Datas {
     {
         this.ensembleApprentissage = ea;
         this.test = t;
+    }
+    public Datas(List<Individu> ea)
+    {
+        this.ensembleApprentissage = ea;
+        this.test = new ArrayList<>();
     }
 
     public List<Individu> getEnsembleApprentissage() {
@@ -37,5 +43,22 @@ public class Datas {
         this.test = test;
     }
     
+   public void switchIndividu(String nom)
+   {
+       Individu i = getIndividuByName(nom);
+       this.ensembleApprentissage.remove(i);
+       this.test.add(i);
+   }
     
+    private Individu getIndividuByName(String nom)
+    {
+        for(Individu i : ensembleApprentissage)
+        {
+            if(i.getNom().equals(nom))
+            {
+                return i;
+            }
+        }
+        return null;
+    }
 }

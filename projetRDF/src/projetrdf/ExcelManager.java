@@ -32,7 +32,6 @@ public class ExcelManager {
     }
 
     public Datas extractData() throws FileNotFoundException, IOException, InvalidFormatException {
-        System.out.println(new File(path).getAbsolutePath());
         FileInputStream fip = new FileInputStream(new File(path));
         Workbook workbook = WorkbookFactory.create(fip);
         Sheet firstSheet = workbook.getSheetAt(0);
@@ -59,11 +58,11 @@ public class ExcelManager {
                 }
             }
             int classe = 0;
-            String[] nom = nomIndividu.split(".");
+            String[] nom = nomIndividu.split("\\.");
             classe = Integer.parseInt(nom[0])/100;
             li.add(new Individu(nomIndividu, tabIndividu, classe));
         }
-        return new Datas(li, null);
+        return new Datas(li);
     }
 
 }
