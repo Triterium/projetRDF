@@ -41,26 +41,26 @@ public class ExcelManager {
         while (iterator.hasNext()) {
             Row nextRow = iterator.next();
             Iterator<Cell> cellIterator = nextRow.cellIterator();
+            double[] tabIndividu = new double[nextRow.getLastCellNum()];
+            String nomIndividu = "";
+            int cpt = 0;
             while (cellIterator.hasNext()) {
+
                 Cell cell = cellIterator.next();
-                System.out.println(cell.getCellType()+"]");
-                switch (cell.getCellType()) {
-                    case Cell.CELL_TYPE_STRING:
-                        System.out.print("(string)"+cell.getStringCellValue());
-                        break;
-                    case Cell.CELL_TYPE_BOOLEAN:
-                        System.out.print(cell.getBooleanCellValue());
-                        break;
-                    case Cell.CELL_TYPE_NUMERIC:
-                        System.out.print("numeric"+cell.getNumericCellValue());
-                        
-                        break;
+                if (cpt == 0) {
+                    nomIndividu = cell.getStringCellValue();
+                } else {
+                    tabIndividu[cpt - 1] = Double.parseDouble(cell.getStringCellValue());
                 }
-                System.out.print(" - ");
+                cpt++;
+                if(cell.getStringCellValue().equals(""))
+                {
+                    break;
+                }
             }
-            System.out.println();
+            li.add(new Individu(nomIndividu, tabIndividu));
         }
-        return null;
+        return new Datas(li, li);
     }
 
 }

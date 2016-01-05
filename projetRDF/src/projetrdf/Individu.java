@@ -48,4 +48,18 @@ public class Individu {
         }
         return ret;
     }
+    
+    @Override
+    public String toString()
+    {
+        String s = "[" + this.nom;
+        for(double d : this.mesures)
+        {
+            s += " " + d;
+        }
+        
+        s += "]";
+        return s;
+            
+    }
 }
