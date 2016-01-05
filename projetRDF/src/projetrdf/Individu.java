@@ -14,12 +14,23 @@ public class Individu {
     private final int nb_mesures;
     private final double[] mesures;
     private String nom;
+    private int classe;
 
-    public Individu(String nom, double[] m)
+    public Individu(String nom, double[] m, int classe)
     {
         this.nb_mesures = m.length;
         this.mesures = m;
+        this.nom = nom;
+        this.classe = classe;
    }
+
+    public int getClasse() {
+        return classe;
+    }
+
+    public void setClasse(int classe) {
+        this.classe = classe;
+    }
 
     public String getNom() {
         return nom;
