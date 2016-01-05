@@ -66,6 +66,39 @@ public class KPPV {
         return Math.sqrt(somme);
     }
     
+    private Individu[] calculKPPV(Individu aTester, List<Individu> ensemble, int k)
+    {
+        Individu[] kppv = new Individu[k];
+        boolean check;
+        int cpt;
+        
+        for(int i=0; i<k; i++)
+        {
+            kppv[i] = ensemble.get(0);
+        }
+        
+        for(Individu i : ensemble) 
+        {
+            cpt = 0;
+            do
+            {
+                check = false;
+                if(this.distance(aTester, i) < this.distance(aTester, kppv[cpt]))
+                {
+                    check = true;
+                    for(int j=cpt; j<k-1; j++)
+                    {
+                        kppv[j+1] = kppv[j];
+                    }
+                    kppv[cpt] = i;
+                }
+            cpt ++;
+            }while(check || cpt == 5);
+        }
+        
+        return kppv;
+    }
+    
     /**
      * Etant donné un individu et un tableau des kppv, savoir si 
      * cet individu fait partie des plus proche voisins ou pas. Si oui, réorganise le tableau en poussant les autres éléments
