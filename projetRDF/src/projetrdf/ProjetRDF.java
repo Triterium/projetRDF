@@ -5,6 +5,10 @@
  */
 package projetrdf;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Olivier
@@ -15,7 +19,12 @@ public class ProjetRDF {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+       ExcelManager em = new ExcelManager();
+        try {
+            em.extractData();
+        } catch (IOException ex) {
+            Logger.getLogger(ProjetRDF.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }
