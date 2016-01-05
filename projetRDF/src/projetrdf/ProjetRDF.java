@@ -5,9 +5,11 @@
  */
 package projetrdf;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
 /**
  *
@@ -18,10 +20,17 @@ public class ProjetRDF {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException, InvalidFormatException {
        ExcelManager em = new ExcelManager();
         try {
-            em.extractData();
+            Datas d = em.extractData();
+            
+            for(Individu i : d.ensembleApprentissage)
+            {
+                System.out.println(i.toString());
+            }
+            
+            
         } catch (IOException ex) {
             Logger.getLogger(ProjetRDF.class.getName()).log(Level.SEVERE, null, ex);
         }
