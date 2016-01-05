@@ -48,9 +48,9 @@ public class KPPV {
                     ppv = majTab(ppv, i, in);
                 }
             }
-            int indiceClasse = this.lc.indexOf(this.choixClasse(ppv));
-            lint.add(indiceClasse+1);
-            this.lc.get(indiceClasse).addIndividu(i);
+           // int indiceClasse = this.lc.indexOf(this.choixClasse(ppv));
+            //lint.add(indiceClasse+1);
+            //this.lc.get(indiceClasse).addIndividu(i);
         }
         
         
@@ -132,7 +132,7 @@ public class KPPV {
      * @param ppv
      * @return 
      */
-    private Classe choixClasse(Individu[] ppv)
+    /*private int choixClasse(Individu[] ppv)
     {
         HashMap<Classe, Integer> hm = new HashMap<>();
 
@@ -178,5 +178,5 @@ public class KPPV {
             return lc.get(r.nextInt(this.lc.size()-1));
         }
         return c;
-    }
+    }*/
 }

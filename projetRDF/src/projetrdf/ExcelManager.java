@@ -61,7 +61,7 @@ public class ExcelManager {
             int classe = 0;
             String[] nom = nomIndividu.split(".");
             classe = Integer.parseInt(nom[0])/100;
-            li.add(new Individu(nomIndividu, tabIndividu));
+            li.add(new Individu(nomIndividu, tabIndividu, classe));
         }
         return new Datas(li, null);
     }
