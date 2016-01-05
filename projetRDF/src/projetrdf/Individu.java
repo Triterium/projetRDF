@@ -19,6 +19,7 @@ public class Individu {
     {
         this.nb_mesures = m.length;
         this.mesures = m;
+        this.nom = nom;
    }
 
     public String getNom() {

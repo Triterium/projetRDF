@@ -48,7 +48,7 @@ public class ExcelManager {
 
                 Cell cell = cellIterator.next();
                 if (cpt == 0) {
-                    nomIndividu = "prout";
+                    nomIndividu = cell.getStringCellValue();
                 } else {
                     tabIndividu[cpt - 1] = Double.parseDouble(cell.getStringCellValue());
                 }
@@ -58,9 +58,12 @@ public class ExcelManager {
                     break;
                 }
             }
+            int classe = 0;
+            String[] nom = nomIndividu.split(".");
+            classe = Integer.parseInt(nom[0])/100;
             li.add(new Individu(nomIndividu, tabIndividu));
         }
-        return new Datas(li, li);
+        return new Datas(li, null);
     }
 
 }
