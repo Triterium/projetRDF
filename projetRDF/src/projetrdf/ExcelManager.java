@@ -34,7 +34,7 @@ public class ExcelManager {
     public Datas extractData() throws FileNotFoundException, IOException, InvalidFormatException {
         FileInputStream fip = new FileInputStream(new File(path));
         Workbook workbook = WorkbookFactory.create(fip);
-        Sheet firstSheet = workbook.getSheetAt(0);
+        Sheet firstSheet = workbook.getSheetAt(1);
         Iterator<Row> iterator = firstSheet.iterator();
         List<Individu> li = new ArrayList<>();
         while (iterator.hasNext()) {

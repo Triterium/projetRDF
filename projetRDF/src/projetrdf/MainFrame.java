@@ -13,6 +13,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
 import javax.swing.ImageIcon;
@@ -76,6 +77,9 @@ public class MainFrame extends JFrame implements ActionListener {
             JPanel jp = new JPanel();
             jp.add(img);
             this.regeneratePanel(jp);
+            KPPV kppv = new KPPV(null,null);
+            AfficheImageFrame aif = new AfficheImageFrame(Arrays.asList(kppv.calculKPPV(d.test.get(0), d.ensembleApprentissage, 4)));
+            d.reset();
         }
 
     }

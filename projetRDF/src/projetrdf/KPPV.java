@@ -39,7 +39,7 @@ import java.util.Map.Entry;
         return Math.sqrt(somme);
     }
 
-    private Individu[] calculKPPV(Individu aTester, List<Individu> ensemble, int k) {
+    public Individu[] calculKPPV(Individu aTester, List<Individu> ensemble, int k) {
         Individu[] kppv = new Individu[k];
         boolean check;
         int cpt;
@@ -60,7 +60,7 @@ import java.util.Map.Entry;
                     kppv[cpt] = i;
                 }
                 cpt++;
-            } while (check || cpt == 5);
+            } while (!check && cpt < k);
         }
 
         return kppv;
@@ -72,7 +72,7 @@ import java.util.Map.Entry;
      * @param ppv
      * @return
      */
-    private List<Integer> choixClasse(Individu[] ppv) {
+    public List<Integer> choixClasse(Individu[] ppv) {
         HashMap<Integer, Integer> map_classes = new HashMap<>();
         for (int i = 0; i < ppv.length; i++) {
             if (!map_classes.containsKey(ppv[i].getClasse())) {

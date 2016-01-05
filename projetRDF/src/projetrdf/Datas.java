@@ -13,16 +13,16 @@ import java.util.List;
  * @author Olivier
  */
 public class Datas {
+
     public List<Individu> ensembleApprentissage;
     public List<Individu> test;
-    
-    public Datas(List<Individu> ea, List<Individu> t)
-    {
+
+    public Datas(List<Individu> ea, List<Individu> t) {
         this.ensembleApprentissage = ea;
         this.test = t;
     }
-    public Datas(List<Individu> ea)
-    {
+
+    public Datas(List<Individu> ea) {
         this.ensembleApprentissage = ea;
         this.test = new ArrayList<>();
     }
@@ -42,23 +42,25 @@ public class Datas {
     public void setTest(List<Individu> test) {
         this.test = test;
     }
-    
-   public void switchIndividu(String nom)
-   {
-       Individu i = getIndividuByName(nom);
-       this.ensembleApprentissage.remove(i);
-       this.test.add(i);
-   }
-    
-    private Individu getIndividuByName(String nom)
-    {
-        for(Individu i : ensembleApprentissage)
-        {
-            if(i.getNom().equals(nom))
-            {
+
+    public void switchIndividu(String nom) {
+        Individu i = getIndividuByName(nom);
+        this.ensembleApprentissage.remove(i);
+        this.test.add(i);
+    }
+
+    private Individu getIndividuByName(String nom) {
+        for (Individu i : ensembleApprentissage) {
+            if (i.getNom().equals(nom)) {
                 return i;
             }
         }
         return null;
+    }
+
+    public void reset() {
+        
+        this.ensembleApprentissage.addAll(test);
+        this.test.clear();
     }
 }
