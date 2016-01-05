@@ -48,7 +48,7 @@ public class ExcelManager {
 
                 Cell cell = cellIterator.next();
                 if (cpt == 0) {
-                    nomIndividu = cell.getStringCellValue();
+                    nomIndividu = "prout";
                 } else {
                     tabIndividu[cpt - 1] = Double.parseDouble(cell.getStringCellValue());
                 }
