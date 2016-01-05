@@ -11,14 +11,23 @@ package projetrdf;
  */
 public class Individu {
     
-    private int nb_mesures;
-    private double[] mesures;
+    private final int nb_mesures;
+    private final double[] mesures;
+    private String nom;
 
-    public Individu(double[] m)
+    public Individu(String nom, double[] m)
     {
         this.nb_mesures = m.length;
         this.mesures = m;
    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
     
     public int getNbMesures()
     {
