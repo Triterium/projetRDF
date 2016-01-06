@@ -78,7 +78,9 @@ public class MainFrame extends JFrame implements ActionListener {
             jp.add(img);
             this.regeneratePanel(jp);
             KPPV kppv = new KPPV(null,null);
-            AfficheImageFrame aif = new AfficheImageFrame(Arrays.asList(kppv.calculKPPV(d.test.get(0), d.ensembleApprentissage, 4)));
+            Individu[] tabKPPV = kppv.calculKPPV(d.test.get(0), d.ensembleApprentissage, 20);
+            AfficheImageFrame aif = new AfficheImageFrame(Arrays.asList(tabKPPV));
+            System.out.println("Taux erreur : " + kppv.calculErreur(tabKPPV, d.test.get(0)) + "%");
             d.reset();
         }
 

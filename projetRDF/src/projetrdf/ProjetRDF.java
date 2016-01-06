@@ -26,9 +26,6 @@ public class ProjetRDF {
         try {
             Datas d = em.extractData();
 
-            for (Individu i : d.ensembleApprentissage) {
-                System.out.println(i.toString());
-            }
             MainFrame mf = new MainFrame(d);
         } catch (IOException ex) {
             Logger.getLogger(ProjetRDF.class.getName()).log(Level.SEVERE, null, ex);
