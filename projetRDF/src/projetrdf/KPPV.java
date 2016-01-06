@@ -78,7 +78,7 @@ import java.util.Map.Entry;
                 tauxErreur--;
             }
         }
-        tauxErreur = (tauxErreur / kppv.length) * 100;
+        tauxErreur = (tauxErreur / (double)kppv.length) * (double)100;
         return tauxErreur;
     }
     

@@ -69,8 +69,8 @@ public class MainFrame extends JFrame implements ActionListener {
         b.add(jp);
         b.add(Box.createGlue());
         this.add(b);
-        
-        this.setPreferredSize(new Dimension(400,300));
+
+        this.setPreferredSize(new Dimension(400, 300));
         this.pack();
         this.setVisible(true);
         this.addWindowListener(new WindowAdapter() {
@@ -100,11 +100,27 @@ public class MainFrame extends JFrame implements ActionListener {
                 // récupération du fichier sélectionné
                 ExcelManager em = new ExcelManager((String) this.WangSignature.getSelectedItem());
                 Datas d = em.extractData();
+                ArrayList<Individu> ai = (ArrayList<Individu>) d.ensembleApprentissage;
+                ArrayList<Individu> ai2 = (ArrayList<Individu>) ai.clone();
+
+                KPPV kppv = new KPPV(null, null);
+                double erreur = 0.;
+                int cpt = 0;
+                for (Individu i : ai2) {
+                    d.switchIndividu(i.getNom());
+                    Individu[] li2 = kppv.calculKPPV(d.test.get(0), d.ensembleApprentissage, 5);
+                    erreur += kppv.calculErreur(li2, d.test.get(0));
+                    d.reset();
+                }
+                System.out.println("erreur : " + erreur / (double) (d.ensembleApprentissage.size()-1));
+                
                 String fichierChoisi = formatFileName(dialogue.getSelectedFile().getAbsolutePath());
                 d.switchIndividu(fichierChoisi);
                 ImageFrame imf = new ImageFrame(d, nbVoisin);
 
                 imf.pack();
+                d.reset();
+
                 /*
                 
                 ImageIcon icon = new ImageIcon("Wang"+System.getProperty("file.separator")+fichierChoisi);
