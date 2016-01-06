@@ -45,7 +45,7 @@ import java.util.Map.Entry;
         int cpt;
 
         for (int i = 0; i < k; i++) {
-            kppv[i] = ensemble.get(0);
+            kppv[i] = ensemble.get(i);
         }
 
         for (Individu i : ensemble) {
