@@ -54,8 +54,8 @@ import java.util.Map.Entry;
                 check = false;
                 if (this.distance(aTester, i) < this.distance(aTester, kppv[cpt])) {
                     check = true;
-                    for(int j = cpt; j < k - 1; j++) {
-                        kppv[j + 1] = kppv[j];
+                    for(int j = k-1; j > cpt; j--) {
+                        kppv[j] = kppv[j-1];
                     }
                     kppv[cpt] = i;
                 }
