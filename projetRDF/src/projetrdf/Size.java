@@ -10,6 +10,6 @@ package projetrdf;
  * @author Olivier
  */
 public class Size {
-    public static int width = 200;
-    public static int height = 300;
+    public static int width = 250;
+    public static int height = 330;
 }

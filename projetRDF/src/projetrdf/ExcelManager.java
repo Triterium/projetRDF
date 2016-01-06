@@ -27,14 +27,16 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class ExcelManager {
 
     String path = "WangSignatures.xls";
+    String sheet;
 
-    public ExcelManager() {
+    public ExcelManager(String sheet) {
+        this.sheet = sheet;
     }
 
     public Datas extractData() throws FileNotFoundException, IOException, InvalidFormatException {
         FileInputStream fip = new FileInputStream(new File(path));
         Workbook workbook = WorkbookFactory.create(fip);
-        Sheet firstSheet = workbook.getSheetAt(1);
+        Sheet firstSheet = workbook.getSheet(sheet);
         Iterator<Row> iterator = firstSheet.iterator();
         List<Individu> li = new ArrayList<>();
         while (iterator.hasNext()) {

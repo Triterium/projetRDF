@@ -28,13 +28,13 @@ public class MultiImagePanel extends JPanel {
         this.setLayout(new GridLayout(li.size()/6+1, 6));
         for(Individu i : li)
         {
-            ImageIcon icon = new ImageIcon(new ImageIcon("Wang"+System.getProperty("file.separator")+i.getNom()).getImage().getScaledInstance(Size.width, Size.height, Image.SCALE_DEFAULT));
+            ImageIcon icon = new ImageIcon("Wang"+System.getProperty("file.separator")+i.getNom())/*.getImage().getScaledInstance(Size.width, Size.height, Image.SCALE_DEFAULT))*/;
             JLabel img = new JLabel(icon);
             this.add(img);
         }
         this.setBorder(BorderFactory.createLineBorder(Color.red));
         this.setVisible(true);
-        this.setPreferredSize(new Dimension(Size.width*6, Size.height));
+        this.setPreferredSize(new Dimension(Size.width*6, Size.height * (li.size()/6+1)));
         
         
     }

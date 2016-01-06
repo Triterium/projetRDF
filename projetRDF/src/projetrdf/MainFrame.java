@@ -12,16 +12,23 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
+import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
 /**
  *
@@ -30,25 +37,40 @@ import javax.swing.JPanel;
 public class MainFrame extends JFrame implements ActionListener {
 
     private List<JButton> ljb;
-    private Datas d;
     private JPanel panelCentral;
+    private JComboBox WangSignature;
+    private JTextField nbVoisins;
 
-    public MainFrame(Datas d) {
-        this.d = d;
-        this.setLayout(new BorderLayout());
+    public MainFrame() {
         panelCentral = new JPanel();
+        this.WangSignature = new JComboBox();
+        this.nbVoisins = new JTextField();
         ljb = new ArrayList<>();
         ljb.add(new JButton("choix fichier"));
         JPanel jp = new JPanel();
+        WangSignature.addItem("WangSignaturesPHOG");
+        WangSignature.addItem("WangSignaturesJCD");
+        WangSignature.addItem("WangSignaturesCEDD");
+        WangSignature.addItem("WangSignaturesFCTH");
+        WangSignature.addItem("WangSignaturesFuzzyColorHistogr");
 
         for (JButton jb : ljb) {
             jb.addActionListener(this);
             jp.add(jb);
         }
 
-        this.add(jp, BorderLayout.WEST);
-        this.add(panelCentral, BorderLayout.CENTER);
-        this.setPreferredSize(new Dimension(600, 600));
+        Box b = Box.createVerticalBox();
+        b.add(Box.createGlue());
+        b.add(WangSignature);
+        JPanel jp2 = new JPanel();
+        jp2.add(nbVoisins);
+        nbVoisins.setPreferredSize(new Dimension(100, 20));
+        b.add(jp2);
+        b.add(jp);
+        b.add(Box.createGlue());
+        this.add(b);
+        
+        this.setPreferredSize(new Dimension(400,300));
         this.pack();
         this.setVisible(true);
         this.addWindowListener(new WindowAdapter() {
@@ -63,29 +85,42 @@ public class MainFrame extends JFrame implements ActionListener {
 
         JButton jb = (JButton) e.getSource();
         if (jb.getText().equals("choix fichier")) {
-            String repertoireCourant = new File("").getAbsolutePath();
-            JFileChooser dialogue = new JFileChooser(repertoireCourant + System.getProperty("file.separator") + "Wang");
+            try {
+                String repertoireCourant = new File("").getAbsolutePath();
+                JFileChooser dialogue = new JFileChooser(repertoireCourant + System.getProperty("file.separator") + "Wang");
+                int nbVoisin = 5;
+                try {
+                    nbVoisin = Integer.parseInt(nbVoisins.getText());
+                } catch (Exception ex) {
+                }
 
-            // affichage
-            dialogue.showOpenDialog(null);
+                // affichage
+                dialogue.showOpenDialog(null);
 
-            // récupération du fichier sélectionné
-            String fichierChoisi = formatFileName(dialogue.getSelectedFile().getAbsolutePath());
-            d.switchIndividu(fichierChoisi);
-            ImageFrame imf = new ImageFrame(d, 8);
-            
-            imf.pack();
-            /*
-            
-            ImageIcon icon = new ImageIcon("Wang"+System.getProperty("file.separator")+fichierChoisi);
-            JLabel img = new JLabel(icon);
-            JPanel jp = new JPanel();
-            jp.add(img);
-            this.regeneratePanel(jp);
-            KPPV kppv = new KPPV(null,null);
-<<<<<<< HEAD
-            AfficheImageFrame aif = new AfficheImageFrame(Arrays.asList(kppv.calculKPPV(d.test.get(0), d.ensembleApprentissage, 4)));
-*/
+                // récupération du fichier sélectionné
+                ExcelManager em = new ExcelManager((String) this.WangSignature.getSelectedItem());
+                Datas d = em.extractData();
+                String fichierChoisi = formatFileName(dialogue.getSelectedFile().getAbsolutePath());
+                d.switchIndividu(fichierChoisi);
+                ImageFrame imf = new ImageFrame(d, nbVoisin);
+
+                imf.pack();
+                /*
+                
+                ImageIcon icon = new ImageIcon("Wang"+System.getProperty("file.separator")+fichierChoisi);
+                JLabel img = new JLabel(icon);
+                JPanel jp = new JPanel();
+                jp.add(img);
+                this.regeneratePanel(jp);
+                KPPV kppv = new KPPV(null,null);
+                <<<<<<< HEAD
+                AfficheImageFrame aif = new AfficheImageFrame(Arrays.asList(kppv.calculKPPV(d.test.get(0), d.ensembleApprentissage, 4)));
+                 */
+            } catch (IOException ex) {
+                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InvalidFormatException ex) {
+                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
     }

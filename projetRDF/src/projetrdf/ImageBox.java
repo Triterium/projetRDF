@@ -26,7 +26,7 @@ public class ImageBox {
     public Box createBox() {
         Box b = Box.createHorizontalBox();
         b.add(Box.createGlue());
-        ImageIcon icon = new ImageIcon(new ImageIcon("Wang" + System.getProperty("file.separator") + i.getNom()).getImage().getScaledInstance(Size.width, Size.height, Image.SCALE_DEFAULT));
+        ImageIcon icon = new ImageIcon("Wang" + System.getProperty("file.separator") + i.getNom());
         JLabel img = new JLabel(icon);
         b.add(img);
         b.add(Box.createGlue());

@@ -12,6 +12,7 @@ import java.awt.event.WindowEvent;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.JFrame;
+import javax.swing.JScrollPane;
 
 /**
  *
@@ -29,9 +30,10 @@ public class ImageFrame extends JFrame {
         ImageBox ib = new ImageBox(d.test.get(0));
         MultiImagePanel mip = new MultiImagePanel(li);
         this.add(ib.createBox());
-        this.add(mip);
+        JScrollPane jsp = new JScrollPane(mip);
+        this.add(jsp);
 
-        this.setPreferredSize(new Dimension(mip.getWidth(), 2*mip.getHeight()));
+        this.setPreferredSize(new Dimension(Size.width*6, 2*Size.height));
         this.pack();
         this.setVisible(true);
         this.addWindowListener(new WindowAdapter() {
