@@ -83,8 +83,9 @@ public class MainFrame extends JFrame implements ActionListener {
             jp.add(img);
             this.regeneratePanel(jp);
             KPPV kppv = new KPPV(null,null);
+<<<<<<< HEAD
             AfficheImageFrame aif = new AfficheImageFrame(Arrays.asList(kppv.calculKPPV(d.test.get(0), d.ensembleApprentissage, 4)));
-            d.reset();*/
+*/
         }
 
     }

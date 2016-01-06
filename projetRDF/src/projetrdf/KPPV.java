@@ -49,10 +49,11 @@ import java.util.Map.Entry;
         }
 
         for (Individu i : ensemble) {
+            double distance = this.distance(aTester, i);
             cpt = 0;
             do {
                 check = false;
-                if (this.distance(aTester, i) < this.distance(aTester, kppv[cpt])) {
+                if (distance < this.distance(aTester, kppv[cpt])) {
                     check = true;
                     for(int j = k-1; j > cpt; j--) {
                         kppv[j] = kppv[j-1];
@@ -66,6 +67,21 @@ import java.util.Map.Entry;
         return kppv;
     }
 
+    
+    public double calculErreur(Individu[] kppv, Individu aTester)
+    {
+        double tauxErreur = kppv.length;
+        for(int i=0; i<kppv.length; i++)
+        {
+            if(aTester.getClasse() == kppv[i].getClasse())
+            {
+                tauxErreur--;
+            }
+        }
+        tauxErreur = (tauxErreur / kppv.length) * 100;
+        return tauxErreur;
+    }
+    
     /**
      * permet de savoir quelle classe parmi le tableau des plus proches voisins
      *
