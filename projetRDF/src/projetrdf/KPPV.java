@@ -30,7 +30,7 @@ import java.util.Map.Entry;
         this.li = li;
     }
 
-    private double distance(Individu i1, Individu i2) {
+    private static double distance(Individu i1, Individu i2) {
         int somme = 0;
         for (int i = 0; i < i1.getNbMesures(); i++) {
             somme += Math.pow(i1.getMesures()[i] - i2.getMesures()[i], 2);
@@ -39,7 +39,7 @@ import java.util.Map.Entry;
         return Math.sqrt(somme);
     }
 
-    public Individu[] calculKPPV(Individu aTester, List<Individu> ensemble, int k) {
+    public static Individu[] calculKPPV(Individu aTester, List<Individu> ensemble, int k) {
         Individu[] kppv = new Individu[k];
         boolean check;
         int cpt;
@@ -49,11 +49,11 @@ import java.util.Map.Entry;
         }
 
         for (Individu i : ensemble) {
-            double distance = this.distance(aTester, i);
+            double distance = distance(aTester, i);
             cpt = 0;
             do {
                 check = false;
-                if (distance < this.distance(aTester, kppv[cpt])) {
+                if (distance < distance(aTester, kppv[cpt])) {
                     check = true;
                     for(int j = k-1; j > cpt; j--) {
                         kppv[j] = kppv[j-1];
@@ -68,7 +68,7 @@ import java.util.Map.Entry;
     }
 
     
-    public double calculErreur(Individu[] kppv, Individu aTester)
+    public static double calculErreur(Individu[] kppv, Individu aTester)
     {
         double tauxErreur = kppv.length;
         for(int i=0; i<kppv.length; i++)
@@ -88,7 +88,7 @@ import java.util.Map.Entry;
      * @param ppv
      * @return
      */
-    public List<Integer> choixClasse(Individu[] ppv) {
+    public static List<Integer> choixClasse(Individu[] ppv) {
         HashMap<Integer, Integer> map_classes = new HashMap<>();
         for (int i = 0; i < ppv.length; i++) {
             if (!map_classes.containsKey(ppv[i].getClasse())) {
