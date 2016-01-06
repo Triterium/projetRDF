@@ -72,6 +72,11 @@ public class MainFrame extends JFrame implements ActionListener {
             // récupération du fichier sélectionné
             String fichierChoisi = formatFileName(dialogue.getSelectedFile().getAbsolutePath());
             d.switchIndividu(fichierChoisi);
+            ImageFrame imf = new ImageFrame(d, 8);
+            
+            imf.pack();
+            /*
+            
             ImageIcon icon = new ImageIcon("Wang"+System.getProperty("file.separator")+fichierChoisi);
             JLabel img = new JLabel(icon);
             JPanel jp = new JPanel();
@@ -79,7 +84,7 @@ public class MainFrame extends JFrame implements ActionListener {
             this.regeneratePanel(jp);
             KPPV kppv = new KPPV(null,null);
             AfficheImageFrame aif = new AfficheImageFrame(Arrays.asList(kppv.calculKPPV(d.test.get(0), d.ensembleApprentissage, 4)));
-            d.reset();
+            d.reset();*/
         }
 
     }
