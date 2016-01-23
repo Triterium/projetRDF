@@ -94,7 +94,7 @@ import java.util.Map.Entry;
             if (!map_classes.containsKey(ppv[i].getClasse())) {
                 map_classes.put(ppv[i].getClasse(), 0);
             } else {
-                map_classes.put(ppv[i].getClasse(),map_classes.get(ppv[i].getClass())+1);
+                map_classes.put(ppv[i].getClasse(),map_classes.get(ppv[i].getClasse())+1);
             }
         }
         

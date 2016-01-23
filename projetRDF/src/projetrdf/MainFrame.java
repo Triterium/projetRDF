@@ -26,6 +26,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -44,9 +45,12 @@ public class MainFrame extends JFrame implements ActionListener {
     public MainFrame() {
         panelCentral = new JPanel();
         this.WangSignature = new JComboBox();
+        JLabel nbVoisinsLabel = new JLabel("Nombre de voisins : ");
         this.nbVoisins = new JTextField();
         ljb = new ArrayList<>();
-        ljb.add(new JButton("choix fichier"));
+        ljb.add(new JButton("Trouver les k pp images"));
+        ljb.add(new JButton("Classer une image"));
+        ljb.add(new JButton("Calcul erreur ( peux prendre du temps )"));
         JPanel jp = new JPanel();
         WangSignature.addItem("WangSignaturesPHOG");
         WangSignature.addItem("WangSignaturesJCD");
@@ -63,6 +67,7 @@ public class MainFrame extends JFrame implements ActionListener {
         b.add(Box.createGlue());
         b.add(WangSignature);
         JPanel jp2 = new JPanel();
+        jp2.add(nbVoisinsLabel);
         jp2.add(nbVoisins);
         nbVoisins.setPreferredSize(new Dimension(100, 20));
         b.add(jp2);
@@ -84,7 +89,7 @@ public class MainFrame extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         JButton jb = (JButton) e.getSource();
-        if (jb.getText().equals("choix fichier")) {
+        if (jb.getText().equals("Trouver les k pp images")) {
             try {
                 String repertoireCourant = new File("").getAbsolutePath();
                 JFileChooser dialogue = new JFileChooser(repertoireCourant + System.getProperty("file.separator") + "Wang");
@@ -104,6 +109,7 @@ public class MainFrame extends JFrame implements ActionListener {
                 ArrayList<Individu> ai2 = (ArrayList<Individu>) ai.clone();
 
                 KPPV kppv = new KPPV(null, null);
+                /*
                 double erreur = 0.;
                 int cpt = 0;
                 for (Individu i : ai2) {
@@ -113,7 +119,7 @@ public class MainFrame extends JFrame implements ActionListener {
                     d.reset();
                 }
                 System.out.println("erreur : " + erreur / (double) (d.ensembleApprentissage.size()-1));
-                
+                */
                 String fichierChoisi = formatFileName(dialogue.getSelectedFile().getAbsolutePath());
                 d.switchIndividu(fichierChoisi);
                 ImageFrame imf = new ImageFrame(d, nbVoisin);
@@ -135,6 +141,67 @@ public class MainFrame extends JFrame implements ActionListener {
             } catch (IOException ex) {
                 Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
             } catch (InvalidFormatException ex) {
+                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        if(jb.getText().equals("Calcul erreur ( peux prendre du temps )")){
+            try {
+                ExcelManager em = new ExcelManager((String) this.WangSignature.getSelectedItem());
+                Datas d = em.extractData();
+                ArrayList<Individu> ai = (ArrayList<Individu>) d.ensembleApprentissage;
+                ArrayList<Individu> ai2 = (ArrayList<Individu>) ai.clone();
+
+                KPPV kppv = new KPPV(null, null);
+                
+                double erreur = 0.;
+                int cpt = 0;
+                for (Individu i : ai2) {
+                d.switchIndividu(i.getNom());
+                Individu[] li2 = KPPV.calculKPPV(d.test.get(0), d.ensembleApprentissage, 5);
+                erreur += KPPV.calculErreur(li2, d.test.get(0));
+                d.reset();
+                }
+                JOptionPane.showMessageDialog(this, "erreur : " + erreur / (double) (d.ensembleApprentissage.size()-1) + "%");
+                //System.out.println("erreur : " + erreur / (double) (d.ensembleApprentissage.size()-1));
+                
+            } catch (IOException ex) {
+                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InvalidFormatException ex) {
+                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        if (jb.getText().equals("Classer une image")){
+                try {
+                    String repertoireCourant = new File("").getAbsolutePath();
+                    JFileChooser dialogue = new JFileChooser(repertoireCourant + System.getProperty("file.separator") + "Wang");
+                    int nbVoisin = 5;
+                    try {
+                        nbVoisin = Integer.parseInt(nbVoisins.getText());
+                    } catch (Exception ex) {
+                    }
+                    
+                    // affichage
+                    dialogue.showOpenDialog(null);
+                    
+                    // récupération du fichier sélectionné
+                    ExcelManager em = new ExcelManager((String) this.WangSignature.getSelectedItem());
+                    Datas d = em.extractData();
+                    ArrayList<Individu> ai = (ArrayList<Individu>) d.ensembleApprentissage;
+                    ArrayList<Individu> ai2 = (ArrayList<Individu>) ai.clone();
+                    
+                    KPPV kppv = new KPPV(null, null);
+                    String fichierChoisi = formatFileName(dialogue.getSelectedFile().getAbsolutePath());
+                    d.switchIndividu(fichierChoisi);
+                    Individu[] ppv = KPPV.calculKPPV(d.test.get(0), d.ensembleApprentissage, nbVoisin);
+                    JOptionPane.showMessageDialog(this, "Classe(s) principale(s) de l'image : " + kppv.choixClasse(ppv).toString());
+                    d.reset();
+                    
+                    
+                } catch (IOException ex) {
+                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (InvalidFormatException ex) {
                 Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
