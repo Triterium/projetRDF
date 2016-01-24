@@ -92,29 +92,29 @@ import java.util.Map.Entry;
         HashMap<Integer, Integer> map_classes = new HashMap<>();
         for (int i = 0; i < ppv.length; i++) {
             if (!map_classes.containsKey(ppv[i].getClasse())) {
-                map_classes.put(ppv[i].getClasse(), 0);
+                map_classes.put(ppv[i].getClasse(), 1);
             } else {
                 map_classes.put(ppv[i].getClasse(),map_classes.get(ppv[i].getClasse())+1);
             }
         }
         
         int max = 0;
+        ArrayList<Integer> classes_proches = new ArrayList<>();
         for(Entry<Integer, Integer> entry : map_classes.entrySet())
         {
-            if(entry.getValue() > max)
+            if(entry.getValue() >= max)
             {
                 max = entry.getValue();
+                
             }
         }
         
-        ArrayList<Integer> classes_proches = new ArrayList<>();
-        classes_proches.add(max);
         
         for(Entry<Integer, Integer> entry : map_classes.entrySet())
         {
             if(entry.getValue() == max)
             {
-                classes_proches.add(entry.getValue());
+                classes_proches.add(entry.getKey());
             }
         }
         

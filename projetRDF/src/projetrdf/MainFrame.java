@@ -156,11 +156,23 @@ public class MainFrame extends JFrame implements ActionListener {
                 
                 double erreur = 0.;
                 int cpt = 0;
+                int[][] tab_classes = new int[10][10];
                 for (Individu i : ai2) {
                 d.switchIndividu(i.getNom());
                 Individu[] li2 = KPPV.calculKPPV(d.test.get(0), d.ensembleApprentissage, 5);
-                erreur += KPPV.calculErreur(li2, d.test.get(0));
+                double erreurIndividu = KPPV.calculErreur(li2, d.test.get(0));
+
+                tab_classes[KPPV.choixClasse(li2).get(0)][d.test.get(0).getClasse()]++;
+
+                erreur += erreurIndividu; 
                 d.reset();
+                }
+                for(int j=0;j<tab_classes.length; j++)
+                {
+                    for(int k=0;k<tab_classes.length; k++)
+                    {
+                        System.out.println("Classe[" + j + "][" + k + "] : " + tab_classes[k][j]);   
+                    }
                 }
                 JOptionPane.showMessageDialog(this, "erreur : " + erreur / (double) (d.ensembleApprentissage.size()-1) + "%");
                 //System.out.println("erreur : " + erreur / (double) (d.ensembleApprentissage.size()-1));
