@@ -195,7 +195,12 @@ public class MainFrame extends JFrame implements ActionListener {
                     String fichierChoisi = formatFileName(dialogue.getSelectedFile().getAbsolutePath());
                     d.switchIndividu(fichierChoisi);
                     Individu[] ppv = KPPV.calculKPPV(d.test.get(0), d.ensembleApprentissage, nbVoisin);
-                    JOptionPane.showMessageDialog(this, "Classe(s) principale(s) de l'image : " + kppv.choixClasse(ppv).toString());
+                    String classesMajoritaires = "";
+                    for(Integer i : kppv.choixClasse(ppv)){
+                        classesMajoritaires += i;
+                        classesMajoritaires += ", ";
+                    }
+                    JOptionPane.showMessageDialog(this, "Classe(s) principale(s) de l'image : " + classesMajoritaires);
                     d.reset();
                     
                     
